@@ -14,6 +14,9 @@ const { response } = require('express');
 
 
 const app = express();
+
+PORT = process.env.PORT || 8000;
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
@@ -62,7 +65,7 @@ const checkAuthenticated = function(req, res, next) {
 }
 
 // mongoose connection
-mongoose.connect('mongodb://localhost/navigusAssignment', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/navigusAssignment', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('Database connected'));
@@ -211,6 +214,18 @@ passport.use('localTeacher', new localStrategy({ usernameField: 'roll' }, async(
         });
     });
 }));
+// ADMIN LOGIN
+app.get('/loginAdmin', async(req, res) => {
+    res.render('loginAdmin');
+})
+
+app.post('/loginAdmin', (req, res, next) => {
+    passport.authenticate('localTeacher', {
+        failureRedirect: '/loginAdmin',
+        successRedirect: '/indexAdmin',
+        failureFlash: true,
+    })(req, res, next);
+});
 
 // PASSPORT AUTHENTICATION STRATEGY AND SERIALIZER/DESERIALIZER FOR USER
 passport.serializeUser(function(User, cb) {
@@ -249,18 +264,7 @@ passport.use('localUser', new localStrategy({ usernameField: 'roll' }, async(rol
 
 
 
-// ADMIN LOGIN
-app.get('/loginAdmin', async(req, res) => {
-    res.render('loginAdmin');
-})
 
-app.post('/loginAdmin', (req, res, next) => {
-    passport.authenticate('localTeacher', {
-        failureRedirect: '/loginAdmin',
-        successRedirect: '/indexAdmin',
-        failureFlash: true,
-    })(req, res, next);
-});
 
 
 // USER LOGIN
@@ -475,4 +479,4 @@ app.get('/logout', async(req, res) => {
 })
 
 
-app.listen(8000, () => console.log('Listening to the port 8000'));
+app.listen(PORT, () => console.log(`Listening to the port ${PORT}`));
