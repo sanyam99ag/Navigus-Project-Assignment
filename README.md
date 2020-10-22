@@ -1,2 +1,2 @@
 # Navigus-Project-Assignment
-Project Takeaway Assignmant
+Project Takeaway Assignment
