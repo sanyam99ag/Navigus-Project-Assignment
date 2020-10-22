@@ -6,15 +6,10 @@ const User = require('./user.js')
 const Teacher = require('./teacher.js')
 const coursequiz = require('./coursequiz.js')
 const quizques = require('./quizques.js')
-const quizans = require('./quizans.js')
-    // const data = require('./data.js')
-    // const data = require('./data.js');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash');
 const { response } = require('express');
-// "./config/passport";
-
 // const { Strategy } = require('passport-local')
 
 
@@ -67,16 +62,20 @@ const checkAuthenticated = function(req, res, next) {
 }
 
 // mongoose connection
-mongoose.connect('mongodb://localhost/navigus', {
+mongoose.connect('mongodb://localhost/navigusAssignment', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('Database connected'));
 
-// Initial Register route
+// Dummy home route
 app.get('/home', async(req, res) => {
     res.render('display')
 })
+app.get('/', async(req, res) => {
+    res.render('display')
+})
 
+// ADMIN REGISTER
 app.get('/registerAdmin', async(req, res) => {
         res.render('registerAdmin')
     })
@@ -114,25 +113,24 @@ app.post('/registerAdmin', async(req, res) => {
                         roll,
                         password
                     })
-                    req.flash('success_message', "Registered Successfully.. Login To Continue..");
+                    req.flash('success_message', "Teacher Registered Successfully.. Login To Continue..");
                     res.redirect('/loginAdmin');
                 });
             });
         } else {
             console.log('user exists')
-            err = 'User with this roll number already exists!'
+            err = 'Teacher with this roll number already exists!'
             res.render('registerAdmin', { 'err': err });
         }
 
     }
 })
 
-
+// USER REGISTER
 app.get('/registerUser', async(req, res) => {
     res.render('registerUser')
 })
 
-// Register user
 app.post('/registerUser', async(req, res) => {
     var { email, username, roll, password, confirmpassword } = req.body;
     var err;
@@ -166,12 +164,12 @@ app.post('/registerUser', async(req, res) => {
                         roll,
                         password
                     })
-                    req.flash('success_message', "Registered Successfully.. Login To Continue..");
+                    req.flash('success_message', "Student Registered Successfully.. Login To Continue..");
                     res.redirect('/loginUser');
                 });
             });
         } else {
-            console.log('user exists')
+            // console.log('user exists')
             err = 'User with this roll number already exists!'
             res.render('registerUser', { 'err': err });
         }
@@ -181,7 +179,7 @@ app.post('/registerUser', async(req, res) => {
 
 
 
-
+// PASSPORT AUTHENTICATION STRATEGY AND SERIALIZER/DESERIALIZER FOR TEACHER
 passport.serializeUser(function(Teacher, cb) {
     cb(null, Teacher.id);
 });
@@ -189,16 +187,6 @@ passport.serializeUser(function(Teacher, cb) {
 passport.deserializeUser(function(id, cb) {
     Teacher.findById(id, function(err, Teacher) {
         cb(err, Teacher);
-    });
-});
-
-passport.serializeUser(function(User, cb) {
-    cb(null, User.id);
-});
-
-passport.deserializeUser(function(id, cb) {
-    User.findById(id, function(err, User) {
-        cb(err, User);
     });
 });
 
@@ -223,6 +211,17 @@ passport.use('localTeacher', new localStrategy({ usernameField: 'roll' }, async(
         });
     });
 }));
+
+// PASSPORT AUTHENTICATION STRATEGY AND SERIALIZER/DESERIALIZER FOR USER
+passport.serializeUser(function(User, cb) {
+    cb(null, User.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+    User.findById(id, function(err, User) {
+        cb(err, User);
+    });
+});
 
 passport.use('localUser', new localStrategy({ usernameField: 'roll' }, async(roll, password, done) => {
 
@@ -250,17 +249,11 @@ passport.use('localUser', new localStrategy({ usernameField: 'roll' }, async(rol
 
 
 
-// Login admin
+// ADMIN LOGIN
 app.get('/loginAdmin', async(req, res) => {
     res.render('loginAdmin');
 })
 
-// Login user
-app.get('/loginUser', async(req, res) => {
-    res.render('loginUser');
-})
-
-// Login admin
 app.post('/loginAdmin', (req, res, next) => {
     passport.authenticate('localTeacher', {
         failureRedirect: '/loginAdmin',
@@ -269,7 +262,12 @@ app.post('/loginAdmin', (req, res, next) => {
     })(req, res, next);
 });
 
-// Login user
+
+// USER LOGIN
+app.get('/loginUser', async(req, res) => {
+    res.render('loginUser');
+})
+
 app.post('/loginUser', (req, res, next) => {
     passport.authenticate('localUser', {
         failureRedirect: '/loginUser',
@@ -278,17 +276,19 @@ app.post('/loginUser', (req, res, next) => {
     })(req, res, next);
 });
 
-// Success route admin
+
+// ADMIN DASHBOARD
 app.get('/indexAdmin', checkAuthenticated, async(req, res) => {
-    res.render('indexAdmin', { 'teacher': req.teacher });
+    res.render('indexAdmin', { 'teacher': req.user });
 });
 
-// Success route user
+// USER DASHBOARD
 app.get('/indexUser', checkAuthenticated, async(req, res) => {
     res.render('indexUser', { 'user': req.user });
 });
 
 
+// CREATE COURSE
 app.get('/createCourse', checkAuthenticated, async(req, res) => {
     res.render('createCoursequiz', { 'teacher': req.teacher })
 })
@@ -303,15 +303,15 @@ app.post('/createCourse', checkAuthenticated, async(req, res) => {
         minmarks: info.minmarks
     });
 
-    const newQuiz = await new quizques({
-        question: info.ques1,
-        opt1: info.ques1op1,
-        opt2: info.ques1op2,
-        opt3: info.ques1op3,
-        opt4: info.ques1op4,
-        ans: info.ans,
-        marks: info.marks
-    })
+    // const newQuiz = await new quizques({
+    //     question: info.ques1,
+    //     opt1: info.ques1op1,
+    //     opt2: info.ques1op2,
+    //     opt3: info.ques1op3,
+    //     opt4: info.ques1op4,
+    //     ans: info.ans,
+    //     marks: info.marks
+    // })
 
 
     newCourse.save(async(error, savedQuiz) => {
@@ -333,44 +333,46 @@ app.post('/createCourse', checkAuthenticated, async(req, res) => {
                         console.log(error);
                         return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
                     }
-                    req.flash('success_message', "Quiz Saved!");
+                    req.flash('success_message', "Course is Created you can now add questions!");
                     res.redirect('/showCourse')
                 });
             });
         }
     });
-    console.log('puot' + newCourse._id)
+    // console.log('puot' + newCourse._id)
 
-    newQuiz.save(async(error, savedQues) => {
-        if (error) {
-            console.log(error);
-            return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
-        }
+    // newQuiz.save(async(error, savedQues) => {
+    //     if (error) {
+    //         console.log(error);
+    //         return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+    //     }
 
-        if (savedQues) {
-            coursequiz.findById(newCourse._id, async(error, foundCourse) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
-                }
+    //     if (savedQues) {
+    //         coursequiz.findById(newCourse._id, async(error, foundCourse) => {
+    //             if (error) {
+    //                 console.log(error);
+    //                 return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+    //             }
 
-                foundCourse.quizques.push(savedQues);
-                foundCourse.maxmarks = parseInt(foundCourse.maxmarks) + parseInt(info.marks);
-                foundCourse.save(async(error, savedQues) => {
-                    if (error) {
-                        console.log(error);
-                        return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
-                    }
-                    req.flash('success_message', "Quiz Saved!");
-                    // res.redirect('/showCourse')
-                });
-            });
-        }
-    });
+    //             foundCourse.quizques.push(savedQues);
+    //             foundCourse.maxmarks = parseInt(foundCourse.maxmarks) + parseInt(info.marks);
+    //             foundCourse.save(async(error, savedQues) => {
+    //                 if (error) {
+    //                     console.log(error);
+    //                     return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
+    //                 }
+    //                 req.flash('success_message', "Quiz Saved!");
+    //                 // res.redirect('/showCourse')
+    //             });
+    //         });
+    //     }
+    // });
     // res.json(info);
     // res.redirect('/showCourse')
 })
 
+
+// CREATE QUIZ ACC TO COURSE ID
 app.get('/createQuiz/:id', checkAuthenticated, async(req, res) => {
     res.render('createQuiz', { 'coursequiz': req.coursequiz, '_id': req.params.id })
 })
@@ -410,23 +412,22 @@ app.post('/createQuiz/:id', checkAuthenticated, async(req, res) => {
                         return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
                     }
                     // coursequiz.findById(_id, async(error, foundCourse) => {
-                    req.flash('success_message', "Quiz Saved!");
+                    req.flash('success_message', "Question Saved!");
                     // res.redirect('/showCourse')
                 });
                 // foundCourse.maxmarks = foundCourse.maxmarks + info.marks;
                 foundCourse.maxmarks = parseInt(foundCourse.maxmarks) + parseInt(info.marks);
 
-                console.log('render' + foundCourse.quizques)
+                // console.log('render' + foundCourse.quizques)
                 res.redirect('/showCourse/' + _id)
-                    // res.render('showQuiz', { 'coursename': foundCourse.coursename, 'coursecode': foundCourse.coursecode, 'quizques': foundCourse.quizques, '_id': foundCourse._id })
             });
         }
     });
     // res.json(info);
     // res.redirect('/showQuiz')
-
 })
 
+// DISPLAY COURSE
 app.get('/showCourse', checkAuthenticated, async(req, res) => {
     Teacher.findById(req.user._id).populate("coursequiz").exec(async(error, foundTeacher) => {
         if (error) {
@@ -438,11 +439,12 @@ app.get('/showCourse', checkAuthenticated, async(req, res) => {
             console.log("url does not exist");
             return res.redirect('/404')
         }
-        console.log(foundTeacher.coursequiz)
+        // console.log(foundTeacher.coursequiz)
         res.render('showCourse', { 'teacher': foundTeacher.username, '_id': foundTeacher._id, 'coursequiz': foundTeacher.coursequiz })
     });
 })
 
+// DISPLAY QUIZ QUESTIONS OF COURSE ID
 app.get('/showCourse/:id', checkAuthenticated, async(req, res) => {
     // console.log('user' + req.user)
     // console.log('course' + req.coursequiz)
@@ -466,87 +468,7 @@ app.get('/showCourse/:id', checkAuthenticated, async(req, res) => {
 })
 
 
-// app.get('/showQuiz', checkAuthenticated, async(req, res) => {
-
-// })
-
-app.get('/api', checkAuthenticated, async(req, res) => {
-    user.findById(req.user._id).populate("data").exec(async(error, foundUser) => {
-        if (error) {
-            console.log(error);
-            return res.redirect('/404')
-        }
-
-        if (!foundUser) {
-            console.log("Api url does not exist");
-            return res.redirect('/404')
-        }
-        // res.send( {'slots': foundUser.slots})
-        // res.render('allslots', { 'user': foundUser.username, 'uid': foundUser._id, 'data': foundUser.data })
-        res.send({ 'user': foundUser.username, 'uid': foundUser._id, 'data': foundUser.data })
-    });
-
-})
-
-// app.post('/api', checkAuthenticated, async(req, res) => {
-//     const info = req.body;
-
-//     // const timestamp = Date.now();
-//     // info.timestamp = timestamp;
-//     // console.log(info);
-
-
-//     const newData = await new data({
-//         message: info.message
-//     });
-
-//     newData.save(async(error, savedData) => {
-//         if (error) {
-//             console.log(error);
-//             return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
-//         }
-
-//         if (savedData) {
-//             User.findById(req.user._id, async(error, foundUser) => {
-//                 if (error) {
-//                     console.log(error);
-//                     return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
-//                 }
-
-//                 foundUser.data.push(savedData);
-//                 foundUser.save(async(error, savedData) => {
-//                     if (error) {
-//                         console.log(error);
-//                         return res.status(404).json({ success: false, msg: "Something went wrong. Please try again" });
-//                     }
-
-//                     req.flash('success_message', "Data Saved!");
-
-//                 });
-//             });
-//         }
-//     });
-//     res.json(info);
-// })
-
-// app.get('/display', async(req, res) => {
-//         user.findById(req.user._id).populate("data").exec(async(error, foundUser) => {
-//             if (error) {
-//                 console.log(error);
-//                 return res.redirect('/404')
-//             }
-
-//             if (!foundUser) {
-//                 console.log("Api url does not exist");
-//                 return res.redirect('/404')
-//             }
-
-//             res.render('display', { 'user': foundUser.username, 'uid': foundUser._id, 'data': foundUser.data })
-//         });
-//     })
-
-
-// Logout route
+// LOGOUT ROUTE
 app.get('/logout', async(req, res) => {
     req.logout();
     res.redirect('/home');

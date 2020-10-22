@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selfie Book</title>
+    <title>Create Course~Admin</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/smoothproducts.min.css">
@@ -69,11 +69,12 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="/index">Selfie Book</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="/index">Project Takeaway Assignment</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/index">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/diaplay">View-Book</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/indexAdmin">Dash</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/showCourse">View-Courses</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link " href="/createCourse">Add-Course</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
                 </ul>
             </div>
@@ -89,7 +90,7 @@
         <section class="clean-block clean-form dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">CREATE COURSE AND IT'S QUIZr</h2>
+                    <h2 class="text-info">CREATE COURSE</h2>
                     <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p> -->
                 </div>
                 <div style="margin: 0 auto;" class="col-12 col-md-6 col-lg-5 p-5 customborder">
@@ -109,10 +110,10 @@
                                     <input type="text" class="form-control" name="coursecode" id="coursecode" autocomplete="off" placeholder="coursecode" value="<%= typeof coursecode != 'undefined' ? coursecode : '' %>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="minmarks">min marks</label>
+                                    <label for="minmarks">Minimum Marks for Quiz</label>
                                     <input type="number" class="form-control" name="minmarks" id="minmarks" autocomplete="off" placeholder="minmarks" min="1" value="<%= typeof minmarks != 'undefined' ? minmarks : '' %>">
                                 </div>
-                                <h3>QUIZ QUESTION AND ANSWERS</h3>
+                                <!-- <h3>QUIZ QUESTION AND ANSWERS</h3>
                                 <div class="form-group">
                                     <label for="ques1">question</label>
                                     <input type="text" class="form-control" name="ques1" id="ques1" autocomplete="off" placeholder="ques1" value="<%= typeof ques1 != 'undefined' ? ques1 : '' %>">
@@ -129,7 +130,7 @@
                                     <label for="marks">marks</label>
                                     <input type="number" class="form-control" name="marks" id="marks" autocomplete="off" placeholder="marks" min="0" max="10" value="<%= typeof marks != 'undefined' ? marks : '' %>">
 
-                                </div>
+                                </div> -->
 
                                 <button class="btn btn-primary btn-block" type="submit">submit</button>
 

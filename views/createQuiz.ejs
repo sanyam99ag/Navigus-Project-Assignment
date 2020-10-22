@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selfie Book</title>
+    <title>Add Question~Admin</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/smoothproducts.min.css">
@@ -69,11 +69,12 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="/index">Selfie Book</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="/index">Project Takeaway Assignment</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/index">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/diaplay">View-Book</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/indexAdmin">Dash</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/showCourse">View-Courses</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link " href="/createCourse">Add-Course</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
                 </ul>
             </div>
@@ -89,7 +90,7 @@
         <section class="clean-block clean-form dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">CREATE COURSE AND IT'S QUIZr</h2>
+                    <h2 class="text-info">Add Another Question</h2>
                     <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p> -->
                 </div>
                 <div style="margin: 0 auto;" class="col-12 col-md-6 col-lg-5 p-5 customborder">
@@ -101,22 +102,22 @@
                             </div>
                             <%}%>
 
-                                <h3>QUIZ QUESTION AND ANSWERS</h3>
+                                <h3>QUIZ Question</h3>
                                 <div class="form-group">
-                                    <label for="ques1">question</label>
-                                    <input type="text" class="form-control" name="ques1" id="ques1" autocomplete="off" placeholder="ques1" value="<%= typeof ques1 != 'undefined' ? ques1 : '' %>">
-                                    <label for="ques1op1">option1</label>
-                                    <input type="text" class="form-control" name="ques1op1" id="ques1op1" autocomplete="off" placeholder="ques1op1" value="<%= typeof ques1op1 != 'undefined' ? ques1op1 : '' %>">
-                                    <label for="ques1op2">option2</label>
-                                    <input type="text" class="form-control" name="ques1op2" id="ques1op2" autocomplete="off" placeholder="ques1op2" value="<%= typeof ques1op2 != 'undefined' ? ques1op2 : '' %>">
-                                    <label for="ques1op3">option3</label>
-                                    <input type="text" class="form-control" name="ques1op3" id="ques1op3" autocomplete="off" placeholder="ques1op3" value="<%= typeof ques1op3 != 'undefined' ? ques1op3 : '' %>">
-                                    <label for="ques1op4">option4</label>
-                                    <input type="text" class="form-control" name="ques1op4" id="ques1op4" autocomplete="off" placeholder="ques1op4" value="<%= typeof ques1op4 != 'undefined' ? ques1op4 : '' %>">
-                                    <label for="ans">ans</label>
-                                    <input type="text" class="form-control" name="ans" id="ans" autocomplete="off" placeholder="ans" value="<%= typeof ans != 'undefined' ? ans : '' %>">
-                                    <label for="marks">marks</label>
-                                    <input type="number" class="form-control" name="marks" id="marks" autocomplete="off" placeholder="marks" min="0" max="10" value="<%= typeof marks != 'undefined' ? marks : '' %>">
+                                    <label for="ques1">Question</label>
+                                    <input type="text" class="form-control" name="ques1" id="ques1" autocomplete="off" placeholder="Question" value="<%= typeof ques1 != 'undefined' ? ques1 : '' %>">
+                                    <label for="ques1op1">Option 1</label>
+                                    <input type="text" class="form-control" name="ques1op1" id="ques1op1" autocomplete="off" placeholder="Option 1" value="<%= typeof ques1op1 != 'undefined' ? ques1op1 : '' %>">
+                                    <label for="ques1op2">Option 2</label>
+                                    <input type="text" class="form-control" name="ques1op2" id="ques1op2" autocomplete="off" placeholder="Option 2" value="<%= typeof ques1op2 != 'undefined' ? ques1op2 : '' %>">
+                                    <label for="ques1op3">Option 3</label>
+                                    <input type="text" class="form-control" name="ques1op3" id="ques1op3" autocomplete="off" placeholder="Option 3" value="<%= typeof ques1op3 != 'undefined' ? ques1op3 : '' %>">
+                                    <label for="ques1op4">Option 4</label>
+                                    <input type="text" class="form-control" name="ques1op4" id="ques1op4" autocomplete="off" placeholder="Option 4" value="<%= typeof ques1op4 != 'undefined' ? ques1op4 : '' %>">
+                                    <label for="ans">Correct Ans.</label>
+                                    <input type="text" class="form-control" name="ans" id="ans" autocomplete="off" placeholder="Correct Ans." value="<%= typeof ans != 'undefined' ? ans : '' %>">
+                                    <label for="marks">Max Marks.</label>
+                                    <input type="number" class="form-control" name="marks" id="marks" autocomplete="off" placeholder="Max. Marks" min="0" max="10" value="<%= typeof marks != 'undefined' ? marks : '' %>">
 
                                 </div>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selfie Book</title>
+    <title>View Course ~Admin</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/smoothproducts.min.css">
@@ -69,11 +69,12 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="/index">Selfie Book</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="/index">Project Takeaway Assignment</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/index">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/diaplay">View-Book</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/indexAdmin">Dash</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/showCourse">View-Courses</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link " href="/createCourse">Add-Course</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
                 </ul>
             </div>
@@ -83,44 +84,47 @@
         </div>
     </nav>
 
-
-
-    <main class="page blog-post-list">
-        <section class="clean-block clean-blog-list dark">
+    <main class="page gallery-page">
+        <section class="clean-block clean-gallery dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">HOME
-                    </h2>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur animi sapiente sunt distinctio iste minus cupiditate libero aperiam veritatis in, nemo sit ex deserunt, totam</p>
+                    <h2 class="text-info">View All Courses</h2>
+                    <!-- <p>Click to view Quiz </p> -->
                 </div>
-                <% for(var i=0; i < coursequiz.length; i++) { %>
-                    <div class="clean-blog-post">
-                        <div class="row">
-                            <a href="/showCourse/<%= coursequiz[i]._id%> ">
-                                <div class="col-lg-7" style="border: #151513;">
-                                    <h3>
+                <div class="row">
+                    <% for(var i=0; i < coursequiz.length; i++) { %>
+                        <div class="col-md-6  col-lg-4">
+
+                            <div class="card clean-testimonial-item border-0 rounded-0">
+                                <div class="card-body">
+                                    <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                                    <h3> Course Name:
                                         <%= coursequiz[i].coursename %>
                                     </h3>
-                                    <h3>
+                                    <h3> Course Code:
                                         <%= coursequiz[i].coursecode %>
                                     </h3>
 
-                                    <h3>
+                                    <h3> Max. Marks:
                                         <%= coursequiz[i].maxmarks %>
                                     </h3>
 
-                                    <h3>
+                                    <h3> Min. Marks:
                                         <%= coursequiz[i].minmarks %>
                                     </h3>
+                                    <strong>
+                                        <a href="/showCourse/<%= coursequiz[i]._id%> " >Click to View Quiz >></a>
+                                    </strong>
                                 </div>
-
-                            </a>
+                            </div>
                         </div>
-                    </div>
-                    <% } %>
+                        <% } %>
+                </div>
             </div>
         </section>
     </main>
+
+
 
     <footer class="page-footer dark">
         <div class="footer-copyright">

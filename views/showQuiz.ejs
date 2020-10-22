@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selfie Book</title>
+    <title>Show Quiz~Admin</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/smoothproducts.min.css">
@@ -64,16 +64,22 @@
         .page-footer .footer-copyright {
             margin-top: 0px;
         }
+        
+        .clean-pricing-item p {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="/index">Selfie Book</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="/index">Project Takeaway Assignment</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/index">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/diaplay">View-Book</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/indexAdmin">Dash</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/showCourse">View-Courses</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link " href="/createCourse">Add-Course</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link " href="/createQuiz/<%= _id%>">Add-Another_Question</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
                 </ul>
             </div>
@@ -84,51 +90,48 @@
     </nav>
 
 
-
-    <main class="page blog-post-list">
-        <section class="clean-block clean-blog-list dark">
+    <main class="page pricing-table-page">
+        <section class="clean-block clean-pricing dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">
-                        <%= coursename %>
-                            <%= coursecode %>
-                    </h2>
-                    <!-- <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur animi sapiente sunt distinctio iste minus cupiditate libero aperiam veritatis in, nemo sit ex deserunt, totam</p> -->
+                    <h3 class="text-info">Course Name:
+                        <strong><%= coursename %></strong>
+                        <br> Course Code:
+                        <strong><%= coursecode %></strong>
+                    </h3>
+
+
+                    <strong><a href="/createQuiz/<%= _id%>">ADD ANOTHER QUESTION >></a></strong>
                 </div>
-                <% for(var i=0; i < quizques.length; i++) { %>
-                    <div class="clean-blog-post">
-                        <div class="row">
-                            <!-- <a href="/showQuiz"> -->
-                            <div class="col-lg-4">
-                                <h3>
+                <div class="row justify-content-center">
+
+                    <% for(var i=0; i < quizques.length; i++) { %>
+                        <div class="col-md-5 col-lg-4">
+                            <div class="clean-pricing-item">
+                                <div class="heading">
+                                    <h5>Question
+                                        <%=i+1%>
+                                    </h5>
+                                </div>
+                                <p>
                                     <%= quizques[i].question %>
-                                </h3>
-                                <h3>
-                                    <%= quizques[i].opt1 %>
-                                </h3>
-                                <h3>
-                                    <%= quizques[i].opt2 %>
-                                </h3>
-                                <h3>
-                                    <%= quizques[i].opt3 %>
-                                </h3>
-                                <h3>
-                                    <%= quizques[i].opt4 %>
-                                </h3>
-                                <h3>
-                                    <%= quizques[i].ans %>
-                                </h3>
-
-                                <h3>
-                                    <%= quizques[i].marks %>
-                                </h3>
+                                </p>
+                                <div class="features">
+                                    <h4><span class="feature">Option 1:&nbsp;</span><span> <%= quizques[i].opt1 %></span> </h4>
+                                    <h4> <span class="feature">Option 2:&nbsp;</span><span> <%= quizques[i].opt2 %></span></h4>
+                                    <h4><span class="feature">Option 3:&nbsp;</span><span> <%= quizques[i].opt3 %></span> </h4>
+                                    <h4> <span class="feature">Option 4:&nbsp;</span><span> <%= quizques[i].opt4 %></span></h4>
+                                    <h4><span class="feature">Correct Ans:&nbsp;</span><span><%= quizques[i].ans %></span> </h4>
+                                </div>
+                                <div class="features">
+                                    <h4><span class="feature">Max. Marks:&nbsp;</span><span><%= quizques[i].marks %></span> </h4>
+                                </div>
                             </div>
-                            <!-- </a> -->
                         </div>
-                    </div>
-                    <% } %>
+                        <% } %>
 
-                        <a href="/createQuiz/<%= _id%>"> add another question</a>
+                </div>
+
             </div>
         </section>
     </main>
