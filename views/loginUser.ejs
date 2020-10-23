@@ -67,7 +67,7 @@
         <div class="container"><a class="navbar-brand logo" href="/">Title</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/">Register</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="/registerUser">Register</a></li>
                 </ul>
             </div>
             <!-- Github Banner-->
@@ -83,7 +83,7 @@
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Log In User</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p> -->
                 </div>
                 <form action="/loginUser" method="POST">
                     <% if (success_message != ''){ %>
@@ -113,7 +113,7 @@
                                         </div>
                                     </div>
                                     <button class="btn btn-primary btn-block" type="submit">Log In</button>
-                                    <p>New Here ? <a class="card-link" href="/">Register Now</a> </p>
+                                    <p>New Here ? <a class="card-link" href="/registerUser">Register Now</a> </p>
 
                 </form>
             </div>
