@@ -1,4 +1,4 @@
-# [Navigus-Project-Assignment](https://navigusprojectassignment.herokuapp.com/)
+# Navigus-Project-Assignment
 
 > Project Takeaway Assignment
 
@@ -22,3 +22,7 @@ Launch the server
 ``` 
 
 Open your browser and browse to ```http://localhost:8080``` (You are good to go!)
+
+  
+
+[View](https://github.com/sanyam99ag/Navigus-Project-Assignment/blob/main/navigusassignment.postman_collection.json) the Postman collection documenting all exposed endpoints.
