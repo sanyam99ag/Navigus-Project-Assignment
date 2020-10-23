@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    is_Teacher: {
+        type: Boolean,
+        default: false
+    },
     data: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "data"

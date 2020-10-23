@@ -15,7 +15,7 @@ const { response } = require('express');
 
 const app = express();
 
-PORT = process.env.PORT || 8000;
+PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -180,19 +180,74 @@ app.post('/registerUser', async(req, res) => {
     }
 })
 
+// SERIALIZER DESERIALIZER SESSION CONSTRUCTOR
 
+function SessionConstructor(userId, userGroup, details) {
 
-// PASSPORT AUTHENTICATION STRATEGY AND SERIALIZER/DESERIALIZER FOR TEACHER
-passport.serializeUser(function(Teacher, cb) {
-    cb(null, Teacher.id);
+    this.userId = userId;
+
+    this.userGroup = userGroup;
+
+    this.details = details;
+
+}
+
+passport.serializeUser(function(userObject, done) {
+
+    // userObject could be a Model1 or a Model2... or Model3, Model4, etc.
+
+    let userGroup = "User";
+
+    let userPrototype = Object.getPrototypeOf(userObject);
+
+    if (userPrototype === User.prototype) {
+
+        userGroup = "User";
+
+    } else if (userPrototype === Teacher.prototype) {
+
+        userGroup = "Teacher";
+
+    }
+
+    let sessionConstructor = new SessionConstructor(userObject.id, userGroup, '');
+
+    done(null, sessionConstructor);
+
 });
 
-passport.deserializeUser(function(id, cb) {
-    Teacher.findById(id, function(err, Teacher) {
-        cb(err, Teacher);
-    });
+passport.deserializeUser(function(sessionConstructor, done) {
+
+    if (sessionConstructor.userGroup == 'User') {
+
+        User.findOne({
+
+            _id: sessionConstructor.userId
+
+        }, '-localStrategy.password', function(err, user) { // When using string syntax, prefixing a path with - will flag that path as excluded.
+
+            done(err, user);
+
+        });
+
+    } else if (sessionConstructor.userGroup == 'Teacher') {
+
+        Teacher.findOne({
+
+            _id: sessionConstructor.userId
+
+        }, '-localStrategy.password', function(err, user) { // When using string syntax, prefixing a path with - will flag that path as excluded.
+
+            done(err, user);
+
+        });
+
+    }
+
 });
 
+
+// // PASSPORT AUTHENTICATION STRATEGY AND SERIALIZER/DESERIALIZER FOR TEACHER
 passport.use('localTeacher', new localStrategy({ usernameField: 'roll' }, async(roll, password, done) => {
 
     Teacher.findOne({ roll: roll }, async(err, data) => {
@@ -214,6 +269,7 @@ passport.use('localTeacher', new localStrategy({ usernameField: 'roll' }, async(
         });
     });
 }));
+
 // ADMIN LOGIN
 app.get('/loginAdmin', async(req, res) => {
     res.render('loginAdmin');
@@ -228,17 +284,9 @@ app.post('/loginAdmin', (req, res, next) => {
 });
 
 // PASSPORT AUTHENTICATION STRATEGY AND SERIALIZER/DESERIALIZER FOR USER
-passport.serializeUser(function(User, cb) {
-    cb(null, User.id);
-});
 
-passport.deserializeUser(function(id, cb) {
-    User.findById(id, function(err, User) {
-        cb(err, User);
-    });
-});
 
-passport.use('localUser', new localStrategy({ usernameField: 'roll' }, async(roll, password, done) => {
+passport.use(new localStrategy({ usernameField: 'roll' }, async(roll, password, done) => {
 
     User.findOne({ roll: roll }, async(err, data) => {
         if (err) throw err;
@@ -273,7 +321,7 @@ app.get('/loginUser', async(req, res) => {
 })
 
 app.post('/loginUser', (req, res, next) => {
-    passport.authenticate('localUser', {
+    passport.authenticate('local', {
         failureRedirect: '/loginUser',
         successRedirect: '/indexUser',
         failureFlash: true,
@@ -471,6 +519,41 @@ app.get('/showCourse/:id', checkAuthenticated, async(req, res) => {
     });
 })
 
+// DISPLAY COURSE TO USER
+app.get('/quizCourse', checkAuthenticated, async(req, res) => {
+    coursequiz.find().populate("coursequiz").exec(async(error, foundCourse) => {
+        if (error) {
+            console.log(error);
+            return res.redirect('/404')
+        }
+
+        if (!foundCourse) {
+            console.log("url does not exist");
+            return res.redirect('/404')
+        }
+        res.render('showQuizcourse', { 'coursequiz': foundCourse })
+    });
+});
+
+// ALLOW USER TO TAKE QUIZ
+app.get('/quizCourse/:id', checkAuthenticated, async(req, res) => {
+
+    const _id = req.params.id
+
+    coursequiz.findById(_id).populate("quizques").exec(async(error, foundCoursequiz) => {
+        if (error) {
+            console.log(error);
+            return res.redirect('/404')
+        }
+
+        if (!foundCoursequiz) {
+            console.log("url does not exist");
+            return res.redirect('/404')
+        }
+
+        res.render('takeQuiz', { 'coursename': foundCoursequiz.coursename, 'coursecode': foundCoursequiz.coursecode, 'minmarks': foundCoursequiz.minmarks, 'quizques': foundCoursequiz.quizques, '_id': foundCoursequiz._id })
+    });
+})
 
 // LOGOUT ROUTE
 app.get('/logout', async(req, res) => {
