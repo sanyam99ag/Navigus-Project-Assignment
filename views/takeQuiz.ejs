@@ -157,19 +157,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script.min.js"></script>
     <script src="https://unpkg.com/ejs@3.1.3/ejs.min.js"></script>
-
     <script>
         var minmarks;
         var marksobtained = 0;
+
         $(document).ready(function() {
             $("input[type='button']").click(function() {
+                var test = $(this).id // us particular qustion ka index jissay object array se actual ans fetch karna hai
+                    // console.log(')
+                var radioValue = $("input[name='option']:checked").val(); //user input answer
 
-                var radioValue = $("input[name='option']:checked").val();
-                var it = this.id;
 
-                var ans;
+                var ans
                 if (radioValue) {
-                    alert("You clicked " + radioValue + " and id is " + it + "ans " + ans);
+                    alert("You clicked " + radioValue);
                 }
             });
         });

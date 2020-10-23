@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "30f2ce19-247b-496e-be48-8cbb7323cd94",
+		"name": "navigusassignment",
+		"description": "Routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "registerAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"roll\": \"1111\",\n    \"password\": \"admin\",\n    \"confirmpassword\":\"admin\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://navigusprojectassignment.herokuapp.com/registerAdmin",
+					"protocol": "http",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"registerAdmin"
+					]
+				},
+				"description": "Register Route for Teacher Registration"
+			},
+			"response": []
+		},
+		{
+			"name": "Login Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"roll\": \"1111\",\n    \"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://navigusprojectassignment.herokuapp.com/loginAdmin",
+					"protocol": "http",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"loginAdmin"
+					]
+				},
+				"description": "Login Route for Teacher Login"
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://navigusprojectassignment.herokuapp.com/indexAdmin",
+					"protocol": "http",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"indexAdmin"
+					]
+				},
+				"description": "Home page after admin login"
+			},
+			"response": []
+		},
+		{
+			"name": "createCourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coursename\": \"subject\",\n    \"coursecode\": \"sub123\",\n    \"minmarks\": \"30\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://navigusprojectassignment.herokuapp.com/createCourse",
+					"protocol": "http",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"createCourse"
+					]
+				},
+				"description": "Route to create new course form teacher's end"
+			},
+			"response": []
+		},
+		{
+			"name": "showCourse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://navigusprojectassignment.herokuapp.com/showCourse",
+					"protocol": "http",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"showCourse"
+					]
+				},
+				"description": "To view all the created courses"
+			},
+			"response": []
+		},
+		{
+			"name": "createQuiz/:id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ques1\":\"question statement\",\n    \"ques1op1\":\"option one\",\n    \"ques1op2\":\"option two\",\n    \"ques1op3\":\"option three\",\n    \"ques1op4\":\"option four\",\n    \"ans\":\"option three\",\n    \"marks\":\"10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/createQuiz/5f9279d308c3ea00170cbbc7",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"createQuiz",
+						"5f9279d308c3ea00170cbbc7"
+					]
+				},
+				"description": "to create the quiz of a particular course specified by it's id send through params"
+			},
+			"response": []
+		},
+		{
+			"name": "courseShow/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/showCourse/5f9279d308c3ea00170cbbc7",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"showCourse",
+						"5f9279d308c3ea00170cbbc7"
+					]
+				},
+				"description": "To view the quez questions created so far"
+			},
+			"response": []
+		},
+		{
+			"name": "registerUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user\",\n    \"email\": \"user@gmail.com\",\n    \"roll\": \"123\",\n    \"password\": \"user\",\n    \"confirmpassword\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/registerUser",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"registerUser"
+					]
+				},
+				"description": "For student registeration"
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"roll\":\"123\",\n    \"password\":\"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/loginUser",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"loginUser"
+					]
+				},
+				"description": "To login the student"
+			},
+			"response": []
+		},
+		{
+			"name": "User Dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/indexUser",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"indexUser"
+					]
+				},
+				"description": "Dashbord after logging in by student"
+			},
+			"response": []
+		},
+		{
+			"name": "quizCourse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/quizCourse",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"quizCourse"
+					]
+				},
+				"description": "to display all available courses to the students"
+			},
+			"response": []
+		},
+		{
+			"name": "quizCourse/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/quizCourse/5f9279d308c3ea00170cbbc7",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"quizCourse",
+						"5f9279d308c3ea00170cbbc7"
+					]
+				},
+				"description": "Test window contanins all multiple choice questions"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://navigusprojectassignment.herokuapp.com/logout",
+					"protocol": "https",
+					"host": [
+						"navigusprojectassignment",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"logout"
+					]
+				},
+				"description": "Logout Route"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
