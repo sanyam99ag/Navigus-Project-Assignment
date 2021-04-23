@@ -1,6 +1,6 @@
-# Navigus-Project-Assignment
+# Online-Quiz-Portal
 
-> Project Takeaway Assignment
+> Onlne Quiz Portal
 
 
 ## Setup
