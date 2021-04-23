@@ -129,7 +129,8 @@
                                     <label for="opt4"><%= quizques[i].opt4 %></label>
                                 </div>
 
-                                <input id="<%=i%>" type="button" value="Submit">
+                                <!-- <input  type="button" value="Submit"> -->
+                                <button class="btn btn-primary" id='<%= i %>'> Submit  </button>
 
 
                                 <div class="features">
@@ -156,21 +157,85 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script.min.js"></script>
-    <script src="https://unpkg.com/ejs@3.1.3/ejs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js"></script>
     <script>
         var minmarks;
         var marksobtained = 0;
 
         $(document).ready(function() {
-            $("input[type='button']").click(function() {
-                var test = $(this).id // us particular qustion ka index jissay object array se actual ans fetch karna hai
-                    // console.log(')
+            $("button").click(function() {
+                var quesno = $(this).attr('id'); // us particular qustion ka index jissay object array se actual ans fetch karna hai
+                // console.log()
                 var radioValue = $("input[name='option']:checked").val(); //user input answer
 
 
-                var ans
+                var ans1 = ejs.render(`<%= quizques[0].ans %>`);
+                var ans2 = ejs.render(`<%= quizques[1].ans %>`);
+                var ans3 = ejs.render(`<%= quizques[2].ans %>`);
+                var ans4 = ejs.render(`<%= quizques[3].ans %>`);
                 if (radioValue) {
-                    alert("You clicked " + radioValue);
+                    console.log("You clicked " + radioValue + " Of question no. " + quesno)
+
+                    // const expr = 'Papayas';
+                    switch (quesno) {
+                        case '0':
+                            console.log(ans1)
+                            console.log($(this))
+                            if (radioValue == ans1) {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-success');
+                                $(this)[0].innerHTML = ` &#10004; `;
+                            } else {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-danger');
+                                $(this)[0].innerHTML = ` &#10008; `;
+                            }
+                            break;
+                        case '1':
+                            console.log(ans2)
+                            console.log($(this))
+                            if (radioValue == ans2) {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-success');
+                                $(this)[0].innerHTML = ` &#10004; `;
+                            } else {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-danger');
+                                $(this)[0].innerHTML = ` &#10008; `;
+                            }
+                            break;
+                        case '2':
+                            console.log(ans3)
+                            console.log($(this))
+                            if (radioValue == ans3) {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-success');
+                                $(this)[0].innerHTML = ` &#10004; `;
+                            } else {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-danger');
+                                $(this)[0].innerHTML = ` &#10008; `;
+                            }
+                            break;
+                        case '3':
+                            console.log(ans4)
+                            console.log($(this))
+                            if (radioValue == ans4) {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-success');
+                                $(this)[0].innerHTML = ` &#10004; `;
+                            } else {
+                                $(this).prop('disabled', true);
+                                $(this)[0].classList.replace('btn-primary', 'btn-danger');
+                                $(this)[0].innerHTML = ` &#10008; `;
+                            }
+                            break;
+                        default:
+                            console.log(`Sorry, wrong option.`);
+                    }
+
+                    // &#10008;
+                    // &#10004;
                 }
             });
         });
